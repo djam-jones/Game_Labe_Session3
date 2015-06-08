@@ -4,9 +4,10 @@ using System.Collections;
 public class NetworkManager : MonoBehaviour 
 {
 	//Technical Stuff
-	private const string TypeName = "Ninjas";
-	private const string GameName = "NinjasRoom";
-	private const string IP		  = "127.0.0.1";
+	private const string TypeName 		= "Ninjas";
+	private const string GameName 		= "NinjasRoom";
+	private const string LocalHostIP	= "127.0.0.1";
+	private const string IP				= "172.17.56.31";
 	
 	//List of Hosts and servers
 	private HostData[] _hostList;
@@ -53,6 +54,7 @@ public class NetworkManager : MonoBehaviour
 	void OnConnectedToServer()
 	{
 		print("Server Joined.");
+		SpawnAPlayer();
 	}
 
 	void OnMasterServerEvent(MasterServerEvent msEvent)
