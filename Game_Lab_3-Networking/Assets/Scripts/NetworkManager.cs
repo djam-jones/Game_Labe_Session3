@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviour
 	{
 		MasterServer.ipAddress = LocalHostIP;
 
-		Network.InitializeServer(3, 23466, !Network.HavePublicAddress());
+		Network.InitializeServer(3, 62100, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(TypeName, GameName);
 	}
 
