@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class NetworkManager : MonoBehaviour 
@@ -14,19 +15,16 @@ public class NetworkManager : MonoBehaviour
 
 	//Player Stuff
 	public GameObject _player;
-	private Vector2 _randomPos = Vector2.zero;
-	private float _randomFactor;
 
-	void Start()
-	{
-		//_randomFactor = Random.Range(_randomPos(-6f, -5f), _randomPos(6f, 5f));
-	}
+	//UI Stuff
+	public Text statusText;
+
 
 	private void StartServer()
 	{
-		MasterServer.ipAddress = LocalHostIP;
+		MasterServer.ipAddress = IP;
 
-		Network.InitializeServer(3, 62100, !Network.HavePublicAddress());
+		Network.InitializeServer(3, 25000, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(TypeName, GameName);
 	}
 
@@ -48,12 +46,14 @@ public class NetworkManager : MonoBehaviour
 	void OnServerInitialized()
 	{
 		print("Server Initialized.");
+		statusText.text = "Server Initialized";
 		SpawnAPlayer();
 	}
 
 	void OnConnectedToServer()
 	{
 		print("Server Joined.");
+		statusText.text = "Server Joined";
 		SpawnAPlayer();
 	}
 
@@ -69,6 +69,8 @@ public class NetworkManager : MonoBehaviour
 	{
 		if(!Network.isClient && !Network.isServer)
 		{
+			statusText.text = "Currently waiting...";	
+
 			if(GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
 			{
 				StartServer();
