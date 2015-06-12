@@ -10,15 +10,20 @@ public class PlayerMovement : MonoBehaviour {
 	private bool _doubleJump;
 	private bool _shooting;
 	private Vector3 _moveTo;
+	private float _attackCooldown;
+
+	private bool _AttackUsed;
 	
 	private Rigidbody2D _rigidbody;
 	private NetworkView _networkView;
 	
 	void Start()
 	{
+		_attackCooldown = 1;
 		_speed = 8f;
 		_jumping = false;
 		_doubleJump = false;
+		_AttackUsed = false;
 		
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_networkView = GetComponent<NetworkView>();
@@ -44,8 +49,9 @@ public class PlayerMovement : MonoBehaviour {
 				Jump();
 			}
 			
-			if(Input.GetKeyDown(KeyCode.Mouse0))
+			if(Input.GetKeyDown(KeyCode.Mouse0) && !_AttackUsed)
 			{
+				_AttackUsed = true;
 				Dash();
 			}
 			
@@ -97,6 +103,12 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			_jumping = false;
 			_doubleJump = false;
+			Invoke("attackCooldown",_attackCooldown);
 		}
+	}
+
+	void attackCooldown()
+	{
+		_AttackUsed = false;
 	}
 }
