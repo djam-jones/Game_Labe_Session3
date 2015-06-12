@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-
+	
 	private float _speed;
 	private float _moveX;
 	private float _zAxis = 0f;
@@ -10,33 +10,35 @@ public class PlayerMovement : MonoBehaviour {
 	private bool _doubleJump;
 	private bool _shooting;
 	private Vector3 _moveTo;
-
+	
 	private Rigidbody2D _rigidbody;
 	private NetworkView _networkView;
-
+	
 	void Start()
 	{
 		_speed = 8f;
 		_jumping = false;
 		_doubleJump = false;
-
+		
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_networkView = GetComponent<NetworkView>();
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("test");
 
-		InputMovement();
+		if(Input.anyKey)
+			InputMovement();
 	}
-
+	
 	private void InputMovement()
 	{
-		if(_networkView.isMine)
-		{
+		//if(_networkView.isMine)
+		//{
 			_moveX = Input.GetAxis ("Horizontal");
 			_rigidbody.velocity = new Vector3(_moveX * _speed, _rigidbody.velocity.y);
-		
+			
 			if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
 				Jump();
@@ -55,16 +57,16 @@ public class PlayerMovement : MonoBehaviour {
 				{
 					transform.position = new Vector3(transform.position.x, transform.position.y, _zAxis);
 				}
-
+				
 				if(transform.position == _moveTo)
 				{
 					_shooting = false;
 					//_rigidbody.gravityScale += 1;
 				}
 			}
-		}
+		//}
 	}
-
+	
 	private void Jump()
 	{
 		if(_doubleJump)
@@ -77,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
 		else
 			_jumping = true;
 	}
-
+	
 	private void Dash()
 	{
 		if(_shooting)
@@ -88,7 +90,7 @@ public class PlayerMovement : MonoBehaviour {
 		_shooting = true;
 		//_rigidbody.gravityScale -= 1;
 	}
-
+	
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		if(collision.gameObject.tag == "floor")
