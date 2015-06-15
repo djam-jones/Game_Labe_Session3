@@ -4,44 +4,78 @@ using UnityEngine.UI;
 
 public class HostGame : MonoBehaviour {
 
-	private string _ip;
-	private int _port;
-
-	private float _maximumPlayers;
-	private float _minimumPlayers;
-	private float _amountOfPlayers;
+	private int _maximumPlayers;
+	private int _minimumPlayers;
+	private int _amountOfPlayers;
 
 	public Text players;
 	public Text roomName;
+	public Text serverName;
 
 	public GameObject gameStatus;
+	public GameObject lobbyScreen;
+
+	private GameObject _networkManager;
+	private NetworkManager2 _networkManagerScript;
+
+	void Awake()
+	{
+		_networkManager = GameObject.Find("Network Manager");
+		_networkManagerScript = _networkManager.GetComponent<NetworkManager2>();
+	}
 
 	void Start()
 	{
-		//minimum of the total amout of players is 2
+		//Minimum of the total amount of players is 2
 		_minimumPlayers = 2;
-		_maximumPlayers = 6;
-		_amountOfPlayers = _maximumPlayers;
+		//Maximum of the total amount of players is 12
+		_maximumPlayers = 12;
+
+		_amountOfPlayers = 6;
 	}
 
-	public void hostAGame(string hostIp, int hostPort)
+	public void HostAGame()
 	{
 		gameStatus.SetActive(false);
-
-		_ip = hostIp;
-		_port = hostPort;
+		gameObject.SetActive(true);
 	}
 
-	public void cancelHosting()
+	public void CancelHosting()
 	{
 		gameObject.SetActive(false);
 		gameStatus.SetActive(true);
 	}
 
-	public void createGame()
+	public void CreateGame()
 	{
-		//function for creating the game should be here ((string)roomName.toString(), (int)_amountOfPlayers)
-		Debug.Log(roomName.text.ToString() + " --- " + _amountOfPlayers.ToString());
+		//Function for creating the game should be here ((string)roomName.toString(), (int)_amountOfPlayers)
+		print("Server Created with Name: " + roomName.text.ToString() + "\n" + "And a Maximum amount of players of:  " + _amountOfPlayers.ToString());
+
+		if(!Network.isServer && !Network.isClient)
+		{
+			//Initialize the Server
+			_networkManagerScript.HostServer(_amountOfPlayers, roomName.ToString());
+		}
+
+		//Disables this UI menu to create a game
+		gameObject.SetActive(false);
+
+		//Enables Lobby UI
+//		lobbyScreen.SetActive(true);
+
+		//Sets the UI to the Name of the Server
+		serverName.text = "Server: " + roomName.text.ToString();
+
+		/* TODO:
+		 * Make a lobby with the list of players currently in the lobby and a start button to place all the players on the field
+		 * Network.Instantiate(A random level according to the maximum amount of players chosen);
+		 * Network.Instantiate(All the players that joined the lobby);
+		 */
+	}
+
+	public void StartGame()
+	{
+		_networkManagerScript.SpawnGameMapAndPlayers();
 	}
 
 	public void Players(int amount)
