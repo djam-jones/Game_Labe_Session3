@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		animator = GetComponent<Animator>();
 
-		_totalTime = 5;
+		_totalTime = 60;
 		_attackCooldown = 1;
 		_speed = 8f;
 		_jumping = false;
