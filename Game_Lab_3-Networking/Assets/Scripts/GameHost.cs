@@ -1,8 +1,8 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class HostGame : MonoBehaviour {
+public class GameHost : MonoBehaviour {
 
 	private int _maximumPlayers;
 	private int _minimumPlayers;
@@ -98,4 +98,3 @@ public class HostGame : MonoBehaviour {
 		}
 	}
 }
-*/
