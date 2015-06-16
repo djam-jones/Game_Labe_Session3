@@ -77,13 +77,18 @@ public class NetworkManager2 : MonoBehaviour {
 		hostIP = quickIP.text.ToString();
 
 		Network.Connect(hostIP, port);
-		SpawnGameMapAndPlayers();
+		SpawnGameMapAndPlayersClient();
 	}
 
-	public void SpawnGameMapAndPlayers()
+	public void SpawnGameMapAndPlayersServer()
 	{
 		Network.Instantiate(playerObject, new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f)), Quaternion.identity, 0);
 		Network.Instantiate(map, new Vector2(0, 0), Quaternion.identity, 0);
+	}
+
+	public void SpawnGameMapAndPlayersClient()
+	{
+		Network.Instantiate(playerObject, new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f)), Quaternion.identity, 0);
 	}
 
 	public void RefreshHostList()

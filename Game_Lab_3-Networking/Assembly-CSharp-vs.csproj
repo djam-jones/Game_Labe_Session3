@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ChangeBackground.cs" />
-     <Compile Include="Assets\Scripts\GameHost.cs" />
+     <Compile Include="Assets\Scripts\HostGame.cs" />
      <Compile Include="Assets\Scripts\Networking\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetworkManager2.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />

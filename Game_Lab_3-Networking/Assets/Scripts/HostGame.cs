@@ -75,7 +75,7 @@ public class HostGame : MonoBehaviour {
 
 	public void StartGame()
 	{
-		_networkManagerScript.SpawnGameMapAndPlayers();
+		_networkManagerScript.SpawnGameMapAndPlayersServer();
 	}
 
 	public void Players(int amount)
