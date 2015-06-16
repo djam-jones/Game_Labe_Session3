@@ -76,6 +76,11 @@ public class NetworkManager2 : MonoBehaviour {
 	{
 		hostIP = quickIP.text.ToString();
 
+		if(quickIP.text == "")
+		{
+			Debug.LogError("You need to provide a valid IP Address");
+		}
+
 		Network.Connect(hostIP, port);
 		SpawnGameMapAndPlayersClient();
 	}
