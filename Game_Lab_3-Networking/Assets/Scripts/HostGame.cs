@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameHost : MonoBehaviour {
+public class HostGame : MonoBehaviour {
 
 	private int _maximumPlayers;
 	private int _minimumPlayers;

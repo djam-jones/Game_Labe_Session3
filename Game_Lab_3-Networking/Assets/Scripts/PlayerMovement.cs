@@ -134,8 +134,9 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		_totalTime -= 1;
 		text.text = _totalTime.ToString();
-		if(_totalTime == 0)
+		if(_totalTime <= 0)
 		{
+			_totalTime = 0;
 			Screen.lockCursor = true;
 		}
 	}
