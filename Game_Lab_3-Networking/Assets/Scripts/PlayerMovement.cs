@@ -22,13 +22,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	private int _score;
 	private int _totalTime;
-
-	Animator animator;
 	
 	void Start()
 	{
-		animator = GetComponent<Animator>();
-
 		_totalTime = 60;
 		_attackCooldown = 1;
 		_speed = 8f;
@@ -63,19 +59,16 @@ public class PlayerMovement : MonoBehaviour {
 				}
 				_moveX = Input.GetAxis ("Horizontal");
 				_rigidbody.velocity = new Vector3(_moveX * _speed, _rigidbody.velocity.y);
-				animator.SetTrigger("Walk");
 			}
 
 			if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
 				Jump();
-				animator.SetTrigger("Jump");
 			}
 			
 			if(Input.GetKeyDown(KeyCode.Mouse0) && !_AttackUsed)
 			{
 				_AttackUsed = true;
-				animator.SetTrigger("Dash");
 				Dash();
 			}
 			
@@ -124,7 +117,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if(collision.gameObject.tag == "floor")
 		{
-			animator.SetTrigger("touchedGround");
 			_jumping = false;
 			_doubleJump = false;
 			Invoke("attackCooldown",_attackCooldown);
