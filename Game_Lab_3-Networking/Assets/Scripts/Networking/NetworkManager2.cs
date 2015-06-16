@@ -9,7 +9,9 @@ public class NetworkManager2 : MonoBehaviour {
 	/* CREATE QUICKCONNECT SYSTEM THAT USES ONLY THE IP ADDRESS AND PORT OF THE HOST
 	 */
 
-
+	//Quick Connect
+	public Text quickIP;
+	public Text quickPort;
 
 	//Technical Stuff
 	private string port 	= "25565";
@@ -48,9 +50,9 @@ public class NetworkManager2 : MonoBehaviour {
 			{
 				for (int i = 0; i < _hostList.Length; i++)
 				{
-					if (GUI.Button(new Rect(200, 100 + (110 * i), 300, 100), _hostList[i].gameType))
+					if (GUI.Button(new Rect(200, 75 + (85 * i), 300, 100), _hostList[i].gameType))
 					{
-						JoinServer(_hostList[i].ip.ToString(), _hostList[i].port);
+						JoinServer(_hostList[i].ip.ToString());
 						Debug.Log("Servers Found: " + i);
 					}
 				}
@@ -70,9 +72,11 @@ public class NetworkManager2 : MonoBehaviour {
 		MasterServer.RegisterHost(typeName, _gameName, "NINJA'S STRIKE!");
 	}
 
-	public void JoinServer(string hostIP, int hostPort)
+	public void JoinServer(string hostIP)
 	{
-		Network.Connect(hostIP, hostPort);
+		hostIP = quickIP.text.ToString();
+
+		Network.Connect(hostIP, port);
 		SpawnGameMapAndPlayers();
 	}
 
