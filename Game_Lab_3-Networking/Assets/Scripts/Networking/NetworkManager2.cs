@@ -68,7 +68,7 @@ public class NetworkManager2 : MonoBehaviour {
 		Network.natFacilitatorIP = GetIP();
 		Network.natFacilitatorPort = 50005;
 
-		Network.InitializeServer(amountOfConnections, int.Parse(port), !Network.HavePublicAddress());
+		Network.InitializeServer(amountOfConnections, 23466, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(typeName, _gameName, "NINJA'S STRIKE!");
 	}
 
@@ -81,7 +81,7 @@ public class NetworkManager2 : MonoBehaviour {
 			Debug.LogError("You need to provide a valid IP Address");
 		}
 
-		Network.Connect(hostIP, port);
+		Network.Connect(hostIP, 23466);
 		SpawnGameMapAndPlayersClient();
 	}
 
